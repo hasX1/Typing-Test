@@ -148,8 +148,6 @@ function combineWords(words) {
 }
 
 document.addEventListener("keydown", (e) => {
-  console.log("Start");
-
   startTimer();
   if (e.key === "Backspace") {
     if (totalTyped.length > 0) {
@@ -213,12 +211,24 @@ function reset() {
   init();
 }
 function init() {
-  text.innerText = longText;
-  timer.textContent = `Time left: ${timerClu}s`;
+  if (ismMobile()) {
+    showMessage();
+  } else {
+    text.innerText = longText;
+    timer.textContent = `Time left: ${timerClu}s`;
+  }
 }
-
-init();
 
 btn.addEventListener("click", () => {
   reset();
 });
+
+function ismMobile() {
+  return /mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 800;
+}
+
+function showMessage() {
+  text.textContent = "this test for Desktop only";
+}
+
+init();
